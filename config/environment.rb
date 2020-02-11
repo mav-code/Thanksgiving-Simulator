@@ -1,4 +1,5 @@
 require_relative '../lib/Person'
+require 'active_record'
 require_relative '../lib/Thanksgiving'
 require_relative '../lib/Plate'
 require_relative '../lib/interface'
