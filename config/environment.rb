@@ -1,9 +1,8 @@
-require_relative '../lib/Person'
 require 'active_record'
+require_relative '../lib/Person'
 require_relative '../lib/Thanksgiving'
 require_relative '../lib/Plate'
 require_relative '../lib/interface'
-require_relative '../schema'
 require_relative '../db/seeds'
 
 # I don't know if ActiveRecord makes the above unnessecary, 

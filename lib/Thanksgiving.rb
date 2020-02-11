@@ -1,4 +1,4 @@
-class Thanksgiving
-   # has_many :plates
-   # has_many :people, through: :plates
+class Thanksgiving < ActiveRedcord::Base
+   has_many :plates
+   has_many :people, through: :plates
 end
