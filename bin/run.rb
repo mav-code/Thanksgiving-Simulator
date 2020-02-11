@@ -6,3 +6,7 @@ require_relative '../config/environment'
 
 
 puts "hello world"
+
+puts Person.all.first.name
+
+binding.pry
