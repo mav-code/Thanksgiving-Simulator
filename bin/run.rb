@@ -1,10 +1,11 @@
 require_relative '../config/environment'
+require 'faker'
 
 # this is where our actual application will run, 
 # but it'll just be calling code in other places
 
 
-
+binding.pry
 puts "hello world"
 
 puts "
@@ -47,4 +48,4 @@ puts "Sounds good. Hope it came out okay."
 
 puts "\n"
 
-binding.pry
+# binding.pry

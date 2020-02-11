@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2020_02_11_173821) do
   create_table "thanksgivings", force: :cascade do |t|
     t.string "type"
     t.integer "strife"
+    t.string "location"
   end
 
 end
