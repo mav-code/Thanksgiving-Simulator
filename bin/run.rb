@@ -3,8 +3,9 @@ require 'faker'
 
 # this is where our actual application will run, 
 # but it'll just be calling code in other places
-prompt = TTY::Prompt.new
 puts "hello world"
+prompt = TTY::Prompt.new
+user = Person.new(name: "user", hunger: "100", tryptophan: "0", politics: nil)
 
 # intro
 
