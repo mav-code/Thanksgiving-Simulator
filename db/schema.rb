@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2020_02_11_173821) do
   end
 
   create_table "thanksgivings", force: :cascade do |t|
-    t.string "type"
+    t.string "course"
     t.integer "strife"
     t.string "location"
   end
