@@ -3,26 +3,29 @@ thanksgiving_locations_master = []
 def intro
     prompt = TTY::Prompt.new
         puts "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
-    sleep(0.5)
+    sleep(0.3)
     puts "\n"
+    sleep(0.3)
     puts "████████╗  ██╗  ██╗   █████╗   ███╗   ██╗  ██╗  ██╗  ███████╗   ██████╗   ██╗  ██╗   ██╗  ██╗  ███╗   ██╗   ██████╗" 
-    sleep(0.5)
+    sleep(0.3)
     puts "╚══██╔══╝  ██║  ██║  ██╔══██╗  ████╗  ██║  ██║ ██╔╝  ██╔════╝  ██╔════╝   ██║  ██║   ██║  ██║  ████╗  ██║  ██╔════╝"
-    sleep(0.5) 
+    sleep(0.3) 
     puts "   ██║     ███████║  ███████║  ██╔██╗ ██║  █████╔╝   ███████╗  ██║  ███╗  ██║  ██║   ██║  ██║  ██╔██╗ ██║  ██║  ███╗"
-    sleep(0.5)
+    sleep(0.3)
     puts "   ██║     ██╔══██║  ██╔══██║  ██║╚██╗██║  ██╔═██╗   ╚════██║  ██║   ██║  ██║  ╚██╗ ██╔╝  ██║  ██║╚██╗██║  ██║   ██║"
-    sleep(0.5)
+    sleep(0.3)
     puts "   ██║     ██║  ██║  ██║  ██║  ██║ ╚████║  ██║  ██╗  ███████║  ╚██████╔╝  ██║   ╚████╔╝   ██║  ██║ ╚████║  ╚██████╔╝"
-    sleep(0.5)
+    sleep(0.3)
     puts "   ╚═╝     ╚═╝  ╚═╝  ╚═╝  ╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝  ╚══════╝   ╚═════╝   ╚═╝    ╚═══╝    ╚═╝  ╚═╝  ╚═══╝   ╚═════╝"
-    sleep(1)
+    sleep(0.3)
     puts "\n"
+    sleep(0.3)
     puts "
-                                            ┌─┐┬┌┬┐┬ ┬┬  ┌─┐┌┬┐┌─┐┬─┐
-                                            └─┐│││││ ││  ├─┤ │ │ │├┬┘
-                                            └─┘┴┴ ┴└─┘┴─┘┴ ┴ ┴ └─┘┴└─
-    "
+                                            ┌─┐┬┌┬┐┬ ┬┬  ┌─┐┌┬┐┌─┐┬─┐"
+    sleep(0.3)
+    puts "                                            └─┐│││││ ││  ├─┤ │ │ │├┬┘"
+    sleep(0.3)
+    puts "                                            └─┘┴┴ ┴└─┘┴─┘┴ ┴ ┴ └─┘┴└─"
     sleep(0.5)
     puts "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
     sleep(4)
@@ -55,11 +58,9 @@ def thanksgiving_menu
     prompt = TTY::Prompt.new
     display_current_plates
     tg_choice = prompt.select("Which feast are you thinking of hitting?", Thanksgiving.all.map{|tg| tg.location})
-    current_tg = Thanksgiving.find_by location tg_choice.to_s
+    current_tg = Thanksgiving.find_by location: tg_choice.to_s
     sleep(0.5)
-    puts "#{tg_choice}. You start gathering your things."
-    sleep(3)
-    call_menu_choice = prompt.select(["Go to #{tg_choice}", "Call ahead", "Back"])
+    call_menu_choice = prompt.select("#{tg_choice}. You start gathering your things.", ["Go to #{tg_choice}", "Call ahead", "Back"])
     if call_menu_choice == "Back"
         thanksgiving_menu
     elsif call_menu_choice == "Call ahead"
@@ -70,8 +71,7 @@ def thanksgiving_menu
 end
 
 def call(tg)
-    puts "You decide to call ahead. >> Call text will go here once we've populated the thanksgiving. <<"
-    call_choice = prompt.select(["Go to #{tg.location}.", "Back"])
+    call_choice = prompt.select("You decide to call ahead. >> Call text will go here once we've populated the thanksgiving. <<",["Go to #{tg.location}.", "Back"])
     if call_choice == "Back"
         thanksgiving_menu
     else
@@ -103,8 +103,7 @@ def attend(tg)
 end
 
 def political_argument
-    puts "I haven't written this part yet."
-    prompt.select(["Attend another Thanksgiving."])
+    prompt.select("I haven't written this part yet.", ["Attend another Thanksgiving."])
     thanksgiving_menu
 end
 
