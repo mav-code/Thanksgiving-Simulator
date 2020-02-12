@@ -8,7 +8,8 @@ prompt = TTY::Prompt.new
 puts "hello world"
 
 intro
-tg_choice = prompt.select("Which feast are you thinking of hitting?", arrayoffiverandomlygeneratedthanksgivings)
+tg_choice = prompt.select("Which feast are you thinking of hitting?", Thanksgiving.all.map{|tg| tg.location})
+
 
 
 
