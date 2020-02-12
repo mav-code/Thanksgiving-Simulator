@@ -55,7 +55,7 @@ def thanksgiving_menu
     prompt = TTY::Prompt.new
     display_current_plates
     tg_choice = prompt.select("Which feast are you thinking of hitting?", Thanksgiving.all.map{|tg| tg.location})
-    current_tg = Thanksgiving.find_by location tg_choice.to_s
+    current_tg = Thanksgiving.find_by location: tg_choice.to_s
     sleep(0.5)
     puts "#{tg_choice}. You start gathering your things."
     sleep(3)
@@ -77,7 +77,7 @@ def call(tg)
     else
         attend(tg)
     end
-        
+
 end
 
 def attend(tg)
