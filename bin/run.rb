@@ -8,7 +8,12 @@ prompt = TTY::Prompt.new
 puts "hello world"
 
 intro
+<<<<<<< HEAD
 tg_choice = prompt.select("Which feast are you thinking of hitting?", thanksgivings.pluck(:location))
+=======
+tg_choice = prompt.select("Which feast are you thinking of hitting?", Thanksgiving.all.map{|tg| tg.location})
+
+>>>>>>> master
 
 
 
