@@ -9,13 +9,6 @@ Person.create(name: Faker::Name.name, hunger: 10, tryptophan: 10, politics: "Red
 Person.create(name: Faker::Name.name, hunger: 10, tryptophan: 10, politics: "Red")
 Person.create(name: Faker::Name.name, hunger: 10, tryptophan: 10, politics: "Blue")
 
-<<<<<<< HEAD
-brooklyn = Thanksgiving.create!(course: "Turkey", strife: 0, location: "Brooklyn")
-new_brunswick = Thanksgiving.create!(course: "Tofukey", strife: 0, location: "New Brunswick")
-queens = Thanksgiving.create!(course: "Turkey", strife: 0, location: "Queens")
-bronx = Thanksgiving.create!(course: "Tofukey", strife: 0, location: "Bronx")
-s_i = Thanksgiving.create!(course: "Tofukey", strife: 0, location: "Staten Island")
-=======
 Thanksgiving.create!(course: "Turkey", strife: 0, location: "Daryl's Place")
 Thanksgiving.create!(course: "Tofukey", strife: 0, location: "Ken's Place")
 Thanksgiving.create!(course: "Turkey", strife: 0, location: "Mom's Place")
@@ -35,6 +28,4 @@ Thanksgiving.create!(course: "Tofukey", strife: 0, location: "Nicky's Place")
 Thanksgiving.create!(course: "Turkey", strife: 0, location: "Anna's Place")
 Thanksgiving.create!(course: "Turkey", strife: 0, location: "Julia's Place")
 Thanksgiving.create!(course: "Turkey", strife: 0, location: "Ashley's Place")
-
 Thanksgiving.create!(course: "Turkey", strife: 0, location: "Stay Home")
->>>>>>> master

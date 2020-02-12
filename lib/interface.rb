@@ -1,3 +1,5 @@
+require 'faker'
+
 thanksgiving_locations_master = []
 
 people_at_tg = []
@@ -5,19 +7,36 @@ def generate_random_number
     (4..10).to_a.sample
 end
 
-def populate_data
+def populate_data(tg)
     i = 0
     people_at_tg = []
     until i == generate_random_number
     people_at_tg << Faker::Name.name
     i += 1
-    participants = people_at_tg
     end
+    people_at_tg
 
-    partipants.each do |plate|
-    Plate.create(person_id: $user.id, thanksgiving_id: tg.id)
+    people_at_tg.each do |person|
+    Plate.create(person_id: person.id, thanksgiving_id: tg.id)
     end
 end
+
+def create_tg()
+    array_tg = []
+    array_tg << 5.times {Thanksgiving.all.sample}
+    array_tg.each {|tg| populate_data(tg)}
+end
+
+
+# def random_locations
+#     i = 0
+#     locations = []
+#     until i == 5
+#         locations << Faker::Restaurant.name
+#         i += 1
+#     end
+#     locations
+# end
 
 def boot
     $user = Person.create(name: "user", hunger: "100", tryptophan: "0", politics: nil)
@@ -94,7 +113,7 @@ def call(tg)
     else
         attend(tg)
     end
-
+        
 end
 
 def attend(tg)
