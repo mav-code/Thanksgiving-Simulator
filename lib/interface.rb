@@ -1,32 +1,29 @@
 thanksgiving_locations_master = []
 
+def boot
+    $user = Person.create(name: "user", hunger: "100", tryptophan: "0", politics: nil)
+end
+
 def intro
     prompt = TTY::Prompt.new
         puts "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
-    sleep(0.3)
+    sleep(1)
     puts "\n"
-    sleep(0.3)
-    puts "████████╗  ██╗  ██╗   █████╗   ███╗   ██╗  ██╗  ██╗  ███████╗   ██████╗   ██╗  ██╗   ██╗  ██╗  ███╗   ██╗   ██████╗" 
-    sleep(0.3)
-    puts "╚══██╔══╝  ██║  ██║  ██╔══██╗  ████╗  ██║  ██║ ██╔╝  ██╔════╝  ██╔════╝   ██║  ██║   ██║  ██║  ████╗  ██║  ██╔════╝"
-    sleep(0.3) 
-    puts "   ██║     ███████║  ███████║  ██╔██╗ ██║  █████╔╝   ███████╗  ██║  ███╗  ██║  ██║   ██║  ██║  ██╔██╗ ██║  ██║  ███╗"
-    sleep(0.3)
-    puts "   ██║     ██╔══██║  ██╔══██║  ██║╚██╗██║  ██╔═██╗   ╚════██║  ██║   ██║  ██║  ╚██╗ ██╔╝  ██║  ██║╚██╗██║  ██║   ██║"
-    sleep(0.3)
-    puts "   ██║     ██║  ██║  ██║  ██║  ██║ ╚████║  ██║  ██╗  ███████║  ╚██████╔╝  ██║   ╚████╔╝   ██║  ██║ ╚████║  ╚██████╔╝"
-    sleep(0.3)
-    puts "   ╚═╝     ╚═╝  ╚═╝  ╚═╝  ╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝  ╚══════╝   ╚═════╝   ╚═╝    ╚═══╝    ╚═╝  ╚═╝  ╚═══╝   ╚═════╝"
-    sleep(0.3)
-    puts "\n"
-    sleep(0.3)
     puts "
-                                            ┌─┐┬┌┬┐┬ ┬┬  ┌─┐┌┬┐┌─┐┬─┐"
-    sleep(0.3)
-    puts "                                            └─┐│││││ ││  ├─┤ │ │ │├┬┘"
-    sleep(0.3)
-    puts "                                            └─┘┴┴ ┴└─┘┴─┘┴ ┴ ┴ └─┘┴└─"
-    sleep(0.5)
+████████╗  ██╗  ██╗   █████╗   ███╗   ██╗  ██╗  ██╗  ███████╗   ██████╗   ██╗  ██╗   ██╗  ██╗  ███╗   ██╗   ██████╗
+╚══██╔══╝  ██║  ██║  ██╔══██╗  ████╗  ██║  ██║ ██╔╝  ██╔════╝  ██╔════╝   ██║  ██║   ██║  ██║  ████╗  ██║  ██╔════╝
+   ██║     ███████║  ███████║  ██╔██╗ ██║  █████╔╝   ███████╗  ██║  ███╗  ██║  ██║   ██║  ██║  ██╔██╗ ██║  ██║  ███╗
+   ██║     ██╔══██║  ██╔══██║  ██║╚██╗██║  ██╔═██╗   ╚════██║  ██║   ██║  ██║  ╚██╗ ██╔╝  ██║  ██║╚██╗██║  ██║   ██║
+   ██║     ██║  ██║  ██║  ██║  ██║ ╚████║  ██║  ██╗  ███████║  ╚██████╔╝  ██║   ╚████╔╝   ██║  ██║ ╚████║  ╚██████╔╝
+   ╚═╝     ╚═╝  ╚═╝  ╚═╝  ╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝  ╚══════╝   ╚═════╝   ╚═╝    ╚═══╝    ╚═╝  ╚═╝  ╚═══╝   ╚═════╝"
+    puts "\n"
+    sleep(1)
+    puts "
+                                                ┌─┐┬┌┬┐┬ ┬┬  ┌─┐┌┬┐┌─┐┬─┐
+                                                └─┐│││││ ││  ├─┤ │ │ │├┬┘
+                                                └─┘┴┴ ┴└─┘┴─┘┴ ┴ ┴ └─┘┴└─"
+    sleep(1)
+    puts "\n"
     puts "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
     sleep(4)
     puts "\n"
@@ -71,6 +68,7 @@ def thanksgiving_menu
 end
 
 def call(tg)
+    prompt = TTY::Prompt.new
     call_choice = prompt.select("You decide to call ahead. >> Call text will go here once we've populated the thanksgiving. <<",["Go to #{tg.location}.", "Back"])
     if call_choice == "Back"
         thanksgiving_menu
@@ -81,19 +79,19 @@ def call(tg)
 end
 
 def attend(tg)
+    prompt = TTY::Prompt.new
     "You arrive at #{tg.location}. >> Will develop more trinket text to go here. <<"
 
     if tg.course == "Tofurkey"
         puts "It's vegetarian this year."
     end
-    if user.thanksgivings.any?{|thanksgiving| thanksgiving = tg}
+    if $user.thanksgivings.any?{|thanksgiving| thanksgiving = tg}
         puts "You find your plate. Someone has put out a cigarette on it."
     else
         puts "You fix yourself a plate and commence small talk. You have fulfilled your harvest pact with these people."
-        Plate.create(person_id: user.id, thanksgiving_id: tg.id)
+        Plate.create(person_id: $user.id, thanksgiving_id: tg.id)
     end
-
-    plate_choice = prompt.select(["Get into a political argument", "Try and attend another Thanksgiving"])
+    plate_choice = prompt.select("What's next?", ["Get into a political argument", "Try and attend another Thanksgiving"])
         if plate_choice == "Get into a political argument"
             political_argument
         else
@@ -103,13 +101,14 @@ def attend(tg)
 end
 
 def political_argument
+    prompt = TTY::Prompt.new
     prompt.select("I haven't written this part yet.", ["Attend another Thanksgiving."])
     thanksgiving_menu
 end
 
 def display_current_plates
-    if Plate.all.any?{|plate| plate.person_id == user.id}
-        locations = user.plates.map{plate.thanksgiving.location}
+    if Plate.all.any?{|plate| plate.person_id == $user.id}
+        locations = $user.plates.map{|plate| plate.thanksgiving.location}
         if locations.length == 1
             puts "You have a plate at #{locations}."
         else puts "You have plates at #{locations}."
