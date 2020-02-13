@@ -1,26 +1,35 @@
-thanksgiving_locations_master = []
+# people_at_tg = []
+# def generate_random_number
+#     (4..10).to_a.sample
+# end
 
-people_at_tg = []
-def generate_random_number
-    (4..10).to_a.sample
-end
+# def populate_data
+#     i = 0
+#     people_at_tg = []
+#     until i == generate_random_number
+#     people_at_tg << Faker::Name.name
+#     i += 1
+#     participants = people_at_tg
+#     end
 
-def populate_data
-    i = 0
-    people_at_tg = []
-    until i == generate_random_number
-    people_at_tg << Faker::Name.name
-    i += 1
-    participants = people_at_tg
-    end
+#     partipants.each do |plate|
+#     Plate.create(person_id: $user.id, thanksgiving_id: tg.id)
+#     end
+# end
 
-    partipants.each do |plate|
-    Plate.create(person_id: $user.id, thanksgiving_id: tg.id)
-    end
-end
+
 
 def boot
     Plate.destroy_all
+    Person.destroy_all
+    $todays_tgs = Thanksgiving.all.sample(5)
+    50.times do Person.create(name: Faker::Name.unique.name, hunger: "100", tryptophan: "0", politics: nil) 
+    end
+    $todays_tgs.each{|tg| 
+        rand(4..15).times do 
+            Plate.create(person_id: Person.all.sample.id, thanksgiving_id: tg.id) 
+        end
+    }
     $user = Person.create(name: "user", hunger: "100", tryptophan: "0", politics: nil)
 end
 
@@ -37,15 +46,15 @@ def intro
    ██║     ██║  ██║  ██║  ██║  ██║ ╚████║  ██║  ██╗  ███████║  ╚██████╔╝  ██║   ╚████╔╝   ██║  ██║ ╚████║  ╚██████╔╝
    ╚═╝     ╚═╝  ╚═╝  ╚═╝  ╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝  ╚══════╝   ╚═════╝   ╚═╝    ╚═══╝    ╚═╝  ╚═╝  ╚═══╝   ╚═════╝"
     puts "\n"
-    sleep(0.5)
+    sleep(1)
     puts "
                                             ┌─┐┬┌┬┐┬ ┬┬  ┌─┐┌┬┐┌─┐┬─┐
                                             └─┐│││││ ││  ├─┤ │ │ │├┬┘
                                             └─┘┴┴ ┴└─┘┴─┘┴ ┴ ┴ └─┘┴└─"
-    sleep(0.5)
+    sleep(1)
     puts "\n"
     puts "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
-    sleep(4)
+    sleep(1)
     puts "\n"
     puts "The year is 2020, the month November. Halloween is over. You promise yourself your costume will be better next year."
     puts "\n"
@@ -76,7 +85,7 @@ def thanksgiving_menu
     display_current_plates
     sleep(0.5)
     puts "\n"
-    tg_choice = prompt.select("Which feast are you thinking of hitting?", Thanksgiving.all.map{|tg| tg.location})
+    tg_choice = prompt.select("Which feast are you thinking of hitting?", $todays_tgs.map{|tg| tg.location})
     current_tg = Thanksgiving.find_by location: tg_choice.to_s
     sleep(0.5)
     puts "\n"
@@ -92,10 +101,28 @@ end
 
 def call(tg)
     prompt = TTY::Prompt.new
+    contact = tg.people.sample.name
     sleep(0.5)
     puts "\n"
-    call_choice = prompt.select("You decide to call ahead. >> Call text will go here once we've populated the thanksgiving. <<",["Go to #{tg.location}.", "Back"])
-    if call_choice == "Back"
+    puts "You decide to call ahead and get the lay of the land."
+    sleep(3)
+    puts "\n"
+    puts "Your chosen point of contact is #{contact}, whom you know to be in attendance."
+    puts "\n"
+    rand(1..6).times do 
+        sleep(3)
+        p "Ring ring ring..."
+        puts "\n"
+    end
+    sleep(3)
+    puts "You get the dirt on the attendees. The following individuals are either already there or on their way:"
+    puts "\n"
+    sleep(0.5)
+    pp tg.people.map{|person| person.name}.uniq
+    puts "\n"
+    sleep(0.5)
+    call_choice = prompt.select("Thanks #{contact}.",["Go to #{tg.location}.", "I hate those people."])
+    if call_choice == "I hate those people."
         thanksgiving_menu
     else
         attend(tg)
@@ -150,7 +177,6 @@ def political_argument(tg)
         puts "\n"
         puts "Let's get out of here."
         sleep(3)
-        puts "\n"
         Plate.where(person_id: $user.id, thanksgiving_id: tg.id)[0].destroy
         thanksgiving_menu
     end
@@ -158,7 +184,6 @@ end
 
 def display_current_plates
     sleep(0.5)
-    puts "\n"
     if Plate.all.any?{|plate| plate.person_id == $user.id}
         locations = $user.plates.all.map{|plate| plate.thanksgiving.location}
         if locations.length == 1
