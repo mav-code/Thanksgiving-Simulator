@@ -1,6 +1,15 @@
-def populate_world
+def new_world
+    shiva
+    brahma
+end
+
+def shiva
+    system "clear"
     Plate.destroy_all
     Person.destroy_all
+end
+
+def brahma
     $todays_tgs = Thanksgiving.all.sample(5)
     50.times do Person.create(name: Faker::Name.unique.name, hunger: "100", tryptophan: "0", politics: nil) 
     end
