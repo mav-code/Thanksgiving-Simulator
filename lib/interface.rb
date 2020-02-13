@@ -57,9 +57,9 @@ def intro
     sleep(1)
     puts "\n"
     if dish 
-    puts "Sounds good. Hope it came out okay."
+        puts "Sounds good. Hope it came out okay."
     else 
-    puts "Nothing, huh? Typical."
+        puts "Nothing, huh? Typical."
     end
     sleep(2)
     puts "\n"
