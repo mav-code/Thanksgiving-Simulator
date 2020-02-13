@@ -175,7 +175,7 @@ def display_current_plates
     if Plate.all.any?{|plate| plate.person_id == $user.id}
         locations = $user.plates.all.map{|plate| plate.thanksgiving.location}
         if locations.length == 1
-            puts "You have a plate at : #{locations.join(", ")}."
+            puts "You have a plate at : #{locations}."
         else puts "You have plates at : #{locations.join(", ")}."
         end
     end
