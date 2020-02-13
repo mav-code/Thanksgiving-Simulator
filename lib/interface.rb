@@ -1,23 +1,8 @@
-# people_at_tg = []
-# def generate_random_number
-#     (4..10).to_a.sample
-# end
-
-# def populate_data
-#     i = 0
-#     people_at_tg = []
-#     until i == generate_random_number
-#     people_at_tg << Faker::Name.name
-#     i += 1
-#     participants = people_at_tg
-#     end
-
-#     partipants.each do |plate|
-#     Plate.create(person_id: $user.id, thanksgiving_id: tg.id)
-#     end
-# end
-
-
+def create_tg()
+    array_tg = []
+    array_tg << 5.times {Thanksgiving.all.sample}
+    array_tg.each {|tg| populate_data(tg)}
+end
 
 def boot
     Plate.destroy_all
@@ -80,6 +65,7 @@ def intro
 end
 
 def thanksgiving_menu
+    system "clear"
     prompt = TTY::Prompt.new
     sleep(0.5)
     display_current_stats
@@ -100,6 +86,7 @@ def thanksgiving_menu
 end
 
 def call(tg)
+    system "clear"
     prompt = TTY::Prompt.new
     contact = tg.people.sample.name
     sleep(0.5)
