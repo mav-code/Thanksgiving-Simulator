@@ -1,25 +1,4 @@
-# people_at_tg = []
-# def generate_random_number
-#     (4..10).to_a.sample
-# end
-
-# def populate_data
-#     i = 0
-#     people_at_tg = []
-#     until i == generate_random_number
-#     people_at_tg << Faker::Name.name
-#     i += 1
-#     participants = people_at_tg
-#     end
-
-#     partipants.each do |plate|
-#     Plate.create(person_id: $user.id, thanksgiving_id: tg.id)
-#     end
-# end
-
-
-
-def boot
+def populate_world
     Plate.destroy_all
     Person.destroy_all
     $todays_tgs = Thanksgiving.all.sample(5)
@@ -30,7 +9,7 @@ def boot
             Plate.create(person_id: Person.all.sample.id, thanksgiving_id: tg.id) 
         end
     }
-    $user = Person.create(name: "user", hunger: "100", tryptophan: "0", politics: nil)
+    $user = Person.create(name: "Yourself, remember?", hunger: "100", tryptophan: "0", politics: nil)
 end
 
 def intro
@@ -77,18 +56,17 @@ def intro
     puts "\n"
     puts "This year's a big one; you're expected at five seperate Thanksgivings. It's a real ordeal, but you suppose you should be thankful."
     sleep (0.5)
+    puts "\n"
 end
 
 def thanksgiving_menu
     prompt = TTY::Prompt.new
     sleep(0.5)
-    puts "\n"
     tg_choice = prompt.select("Which feast are you thinking of hitting?", $todays_tgs.map{|tg| tg.location})
     current_tg = Thanksgiving.find_by location: tg_choice.to_s
     sleep(0.5)
     puts "\n"
     call_menu_choice = prompt.select("#{tg_choice}. You start gathering your things.", ["Go to #{tg_choice}", "Call ahead", "Back"])
-    clear_and_display
     if call_menu_choice == "Back"
         thanksgiving_menu
     elsif call_menu_choice == "Call ahead"
@@ -103,7 +81,7 @@ def call(tg)
     contact = tg.people.sample.name
     sleep(0.5)
     puts "\n"
-    puts "You decide to call ahead and get the lay of the land."
+    puts "You decide to call ahead to get the lay of the land."
     sleep(3)
     puts "\n"
     puts "Your chosen point of contact is #{contact}, whom you know to be in attendance."
@@ -114,7 +92,7 @@ def call(tg)
         puts "\n"
     end
     sleep(3)
-    puts "You get the dirt on the attendees. The following individuals are either already there or on their way:"
+    puts "You get the dirt on the attendees. The following individuals are have been sighted:"
     puts "\n"
     sleep(3)
     pp tg.people.map{|person| person.name}.uniq
@@ -130,22 +108,25 @@ def call(tg)
 end
 
 def attend(tg)
+    clear_and_display
+    sleep(1)
     puts "You arrive at #{tg.location}. The hosts greet you and entreat you to dine."
     if tg.course == "Tofurky"
-        sleep(0.5)
+        sleep(1)
         puts "\n"
         puts "It's vegetarian this year."
     end
-    sleep(0.5)
+    sleep(1)
     puts "\n"
     if $user.thanksgivings.all.any?{|thanksgiving| thanksgiving == tg}
         puts "You find your plate. Someone has put out a cigarette on it."
+        sleep(1)
     else
         puts "You fix yourself a plate and commence small talk. You have fulfilled your harvest pact with these people."
         newplate = Plate.create(person_id: $user.id, thanksgiving_id: tg.id)
         newplate.save
+        sleep(1)
     end
-    sleep(0.5)
     puts "\n"
     tg_choice(tg)
 end
@@ -199,6 +180,7 @@ def political_argument(tg)
         puts "Let's get out of here."
         sleep(3)
         Plate.where(person_id: $user.id, thanksgiving_id: tg.id)[0].destroy
+        clear_and_display
         thanksgiving_menu
     end
 end

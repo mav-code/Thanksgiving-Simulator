@@ -3,6 +3,6 @@ require 'faker'
 
 
 system "clear"
-boot
+populate_world
 intro
 thanksgiving_menu
