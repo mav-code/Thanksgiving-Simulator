@@ -9,8 +9,8 @@
 6. Done!
 
 ## Run the game!
-1. In your terminal, in the cloned folder, type "ruby bin/run.rb"
+1. In your terminal, in the cloned folder, type "ruby bin/run.rb". It may take a moment.
 2. That's it!
 
 ## Note
-Features are still being added to Thanksgiving simulator.
+Features are still being added to Thanksgiving Simulator. Coming soon: Thanksgiving Simulator In Living Color!
