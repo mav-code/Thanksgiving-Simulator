@@ -11,6 +11,7 @@
 ## Run the game!
 1. In your terminal, in the cloned folder, type "ruby bin/run.rb". It may take a moment.
 2. That's it!
+3. To exit the game hit ctrl + c.
 
 ## Note
 Features are still being added to Thanksgiving Simulator. Coming soon: Thanksgiving Simulator In Living Color!

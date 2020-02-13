@@ -25,15 +25,15 @@ def intro
    ██║     ██║  ██║  ██║  ██║  ██║ ╚████║  ██║  ██╗  ███████║  ╚██████╔╝  ██║   ╚████╔╝   ██║  ██║ ╚████║  ╚██████╔╝
    ╚═╝     ╚═╝  ╚═╝  ╚═╝  ╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝  ╚══════╝   ╚═════╝   ╚═╝    ╚═══╝    ╚═╝  ╚═╝  ╚═══╝   ╚═════╝"
     puts "\n"
-    sleep(1)
+    sleep(0.5)
     puts "
                                             ┌─┐┬┌┬┐┬ ┬┬  ┌─┐┌┬┐┌─┐┬─┐
                                             └─┐│││││ ││  ├─┤ │ │ │├┬┘
                                             └─┘┴┴ ┴└─┘┴─┘┴ ┴ ┴ └─┘┴└─"
-    sleep(1)
+    sleep(0.5)
     puts "\n"
     puts "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
-    sleep(1)
+    sleep(2)
     puts "\n"
     puts "The year is 2020, the month November. Halloween is over. You promise yourself your costume will be better next year."
     puts "\n"
@@ -55,7 +55,7 @@ def intro
     sleep(2)
     puts "\n"
     puts "This year's a big one; you're expected at five seperate Thanksgivings. It's a real ordeal, but you suppose you should be thankful."
-    sleep (0.5)
+    sleep (1)
     puts "\n"
 end
 
@@ -67,6 +67,7 @@ def thanksgiving_menu
     sleep(0.5)
     puts "\n"
     call_menu_choice = prompt.select("#{tg_choice}. You start gathering your things.", ["Go to #{tg_choice}", "Call ahead", "Back"])
+    puts "\n"
     if call_menu_choice == "Back"
         thanksgiving_menu
     elsif call_menu_choice == "Call ahead"
@@ -80,7 +81,6 @@ def call(tg)
     prompt = TTY::Prompt.new
     contact = tg.people.sample.name
     sleep(0.5)
-    puts "\n"
     puts "You decide to call ahead to get the lay of the land."
     sleep(3)
     puts "\n"
@@ -100,6 +100,7 @@ def call(tg)
     sleep(0.5)
     call_choice = prompt.select("Thanks #{contact.split[0]}.",["Go to #{tg.location}.", "I hate those people."])
     if call_choice == "I hate those people."
+        puts "\n"
         thanksgiving_menu
     else
         attend(tg)
