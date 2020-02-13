@@ -21,4 +21,4 @@ As a user, you may CREATE a plate at a Thanksgiving by attending.
 As a user, you may READ the plates you already have in the travel menu.
 As a user, you may READ the attendees of a specified Thanksgiving by calling ahead.
 As a user, you may UPDATE your Hunger and Tryptophan scores by eating.
-As a user, you may DELETE a plate by getting into a political argument
+As a user, you may DELETE a plate by getting into a political argument.

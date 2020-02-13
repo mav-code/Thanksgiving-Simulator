@@ -128,6 +128,10 @@ def attend(tg)
         puts "\n"
         puts "It's vegetarian this year."
     end
+    find_plate(tg)
+end
+
+def find_plate(tg)    
     sleep(1)
     puts "\n"
     if $user.thanksgivings.all.any?{|thanksgiving| thanksgiving == tg}
@@ -177,9 +181,10 @@ end
 def political_argument(tg)
     prompt = TTY::Prompt.new
     sleep(1)
+    puts "\n"
     argue_choice = prompt.select("You start hollering about electoralism, the Second Internationale, and podcasts.", ["Calm down!", "Smash your plate and get the heck out of here!"])
     if argue_choice == "Calm down!"
-        attend(tg)
+        find_plate(tg)
     else
         sleep(0.5)
         puts "\n"
@@ -192,7 +197,6 @@ def political_argument(tg)
         puts "Let's get out of here."
         sleep(3)
         Plate.where(person_id: $user.id, thanksgiving_id: tg.id)[0].destroy
-        clear_and_display
         thanksgiving_menu
     end
 end
@@ -203,7 +207,7 @@ def clear_and_display
     if Plate.all.any?{|plate| plate.person_id == $user.id}
         locations = $user.plates.all.map{|plate| plate.thanksgiving.location}
         if locations.length == 1
-            puts "You have a plate at: #{locations.to_s}."
+            puts "You have a plate at: #{locations.join(", ")}."
         else puts "You have plates at: #{locations.join(", ")}."
         end
     end
