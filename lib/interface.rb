@@ -20,6 +20,7 @@ def populate_data
 end
 
 def boot
+    Plate.destroy_all
     $user = Person.create(name: "user", hunger: "100", tryptophan: "0", politics: nil)
 end
 
@@ -36,12 +37,12 @@ def intro
    ██║     ██║  ██║  ██║  ██║  ██║ ╚████║  ██║  ██╗  ███████║  ╚██████╔╝  ██║   ╚████╔╝   ██║  ██║ ╚████║  ╚██████╔╝
    ╚═╝     ╚═╝  ╚═╝  ╚═╝  ╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝  ╚══════╝   ╚═════╝   ╚═╝    ╚═══╝    ╚═╝  ╚═╝  ╚═══╝   ╚═════╝"
     puts "\n"
-    sleep(1)
+    sleep(0.5)
     puts "
-                                                ┌─┐┬┌┬┐┬ ┬┬  ┌─┐┌┬┐┌─┐┬─┐
-                                                └─┐│││││ ││  ├─┤ │ │ │├┬┘
-                                                └─┘┴┴ ┴└─┘┴─┘┴ ┴ ┴ └─┘┴└─"
-    sleep(1)
+                                            ┌─┐┬┌┬┐┬ ┬┬  ┌─┐┌┬┐┌─┐┬─┐
+                                            └─┐│││││ ││  ├─┤ │ │ │├┬┘
+                                            └─┘┴┴ ┴└─┘┴─┘┴ ┴ ┴ └─┘┴└─"
+    sleep(0.5)
     puts "\n"
     puts "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
     sleep(4)
@@ -104,33 +105,44 @@ def attend(tg)
     if tg.course == "Tofurkey"
         puts "It's vegetarian this year."
     end
-    if $user.thanksgivings.any?{|thanksgiving| thanksgiving = tg}
+    if $user.thanksgivings.all.any?{|thanksgiving| thanksgiving == tg}
         puts "You find your plate. Someone has put out a cigarette on it."
     else
         puts "You fix yourself a plate and commence small talk. You have fulfilled your harvest pact with these people."
-        Plate.create(person_id: $user.id, thanksgiving_id: tg.id)
+        newplate = Plate.create(person_id: $user.id, thanksgiving_id: tg.id)
+        newplate.save
     end
     plate_choice = prompt.select("What's next?", ["Get into a political argument", "Try and attend another Thanksgiving"])
         if plate_choice == "Get into a political argument"
-            political_argument
+            political_argument(tg)
         else
             thanksgiving_menu
         end
 
 end
 
-def political_argument
+def political_argument(tg)
     prompt = TTY::Prompt.new
-    prompt.select("I haven't written this part yet.", ["Attend another Thanksgiving."])
-    thanksgiving_menu
+    argue_choice = prompt.select("You start hollering about electoralism, the Second Internationale, and podcasts.", ["Calm down!", "Smash your plate and get the heck out of here!"])
+    if argue_choice == "Calm down!"
+        attend(tg)
+    else
+        puts "With one finger shaking in the air, as if to accuse God herself, you pound your other meaty fist into your mashed potatoes. The dish shatters."
+
+        puts "No one responds or looks you in the eye."
+
+        puts "Let's get out of here."
+        Plate.where(person_id: $user.id, thanksgiving_id: tg.id)[0].destroy
+        thanksgiving_menu
+    end
 end
 
 def display_current_plates
     if Plate.all.any?{|plate| plate.person_id == $user.id}
-        locations = $user.plates.map{|plate| plate.thanksgiving.location}
+        locations = $user.plates.all.map{|plate| plate.thanksgiving.location}
         if locations.length == 1
-            puts "You have a plate at #{locations}."
-        else puts "You have plates at #{locations}."
+            puts "You have a plate at : #{locations.join(", ")}."
+        else puts "You have plates at : #{locations.join(", ")}."
         end
     end
 end
