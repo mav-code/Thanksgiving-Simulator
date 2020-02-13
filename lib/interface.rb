@@ -69,7 +69,6 @@ def intro
 end
 
 def thanksgiving_menu
-    system "clear"
     prompt = TTY::Prompt.new
     sleep(0.5)
     tg_choice = prompt.select("Which feast are you thinking of hitting?", $todays_tgs.map{|tg| tg.location})
@@ -79,16 +78,17 @@ def thanksgiving_menu
     call_menu_choice = prompt.select("#{tg_choice}. You start gathering your things.", ["Go to #{tg_choice}", "Call ahead", "Back"])
     puts "\n"
     if call_menu_choice == "Back"
+        clear_and_display
         thanksgiving_menu
     elsif call_menu_choice == "Call ahead"
         call(current_tg)
     else
+        clear_and_display
         attend(current_tg)
     end
 end
 
 def call(tg)
-    system "clear"
     prompt = TTY::Prompt.new
     contact = tg.people.sample.name
     sleep(0.5)
@@ -103,13 +103,14 @@ def call(tg)
         puts "\n"
     end
     sleep(3)
-    puts "You get the dirt on the attendees. The following individuals are have been sighted:"
+    puts "You get the dirt on the attendees. The following individuals have been sighted:"
     puts "\n"
     sleep(3)
     pp tg.people.map{|person| person.name}.uniq
     puts "\n"
     sleep(0.5)
     call_choice = prompt.select("Thanks #{contact.split[0]}.",["Go to #{tg.location}.", "I hate those people."])
+    clear_and_display
     if call_choice == "I hate those people."
         puts "\n"
         thanksgiving_menu
@@ -120,6 +121,7 @@ def call(tg)
 end
 
 def attend(tg)
+    sleep(0.5)
     puts "You arrive at #{tg.location.blue}. The hosts greet you and entreat you to dine."
     if tg.course == "Tofurky"
         sleep(1)
@@ -156,8 +158,8 @@ def tg_choice(tg)
             puts "Hunger " + "-100".red
             $user.hunger -= 100
             if tg.course == "Turkey"
-                puts "The turkey chemical!"
                 puts "Tryptophan " + "+1".red
+                puts "The turkey chemical!"
                 $user.tryptophan += 1
             else
                 puts "Tryptophan" + "+0".yellow
@@ -166,6 +168,7 @@ def tg_choice(tg)
             puts "\n"
             tg_choice(tg)
         else
+            clear_and_display
             thanksgiving_menu
         end
 
@@ -174,7 +177,6 @@ end
 def political_argument(tg)
     prompt = TTY::Prompt.new
     sleep(1)
-    puts "\n"
     argue_choice = prompt.select("You start hollering about electoralism, the Second Internationale, and podcasts.", ["Calm down!", "Smash your plate and get the heck out of here!"])
     if argue_choice == "Calm down!"
         attend(tg)
