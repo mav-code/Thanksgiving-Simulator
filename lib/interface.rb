@@ -82,14 +82,13 @@ end
 def thanksgiving_menu
     prompt = TTY::Prompt.new
     sleep(0.5)
-    display_current_stats
-    sleep(0.5)
     puts "\n"
     tg_choice = prompt.select("Which feast are you thinking of hitting?", $todays_tgs.map{|tg| tg.location})
     current_tg = Thanksgiving.find_by location: tg_choice.to_s
     sleep(0.5)
     puts "\n"
     call_menu_choice = prompt.select("#{tg_choice}. You start gathering your things.", ["Go to #{tg_choice}", "Call ahead", "Back"])
+    clear_and_display
     if call_menu_choice == "Back"
         thanksgiving_menu
     elsif call_menu_choice == "Call ahead"
@@ -117,11 +116,11 @@ def call(tg)
     sleep(3)
     puts "You get the dirt on the attendees. The following individuals are either already there or on their way:"
     puts "\n"
-    sleep(0.5)
+    sleep(3)
     pp tg.people.map{|person| person.name}.uniq
     puts "\n"
     sleep(0.5)
-    call_choice = prompt.select("Thanks #{contact}.",["Go to #{tg.location}.", "I hate those people."])
+    call_choice = prompt.select("Thanks #{contact.split[0]}.",["Go to #{tg.location}.", "I hate those people."])
     if call_choice == "I hate those people."
         thanksgiving_menu
     else
@@ -131,9 +130,7 @@ def call(tg)
 end
 
 def attend(tg)
-    system "clear"
-    "You arrive at #{tg.location}. >> Will develop more trinket text to go here. <<"
-
+    puts "You arrive at #{tg.location}. The hosts greet you and entreat you to dine."
     if tg.course == "Tofurky"
         sleep(0.5)
         puts "\n"
@@ -172,7 +169,7 @@ def tg_choice(tg)
                 puts "Tryptophan +1"
                 $user.tryptophan += 1
             else
-                puts "Tryptophan --"
+                puts "Tryptophan +0"
             end
             sleep(0.5)
             puts "\n"
@@ -206,17 +203,18 @@ def political_argument(tg)
     end
 end
 
-def display_current_stats
+def clear_and_display
     sleep(0.5)
+    system "clear"
     if Plate.all.any?{|plate| plate.person_id == $user.id}
         locations = $user.plates.all.map{|plate| plate.thanksgiving.location}
         if locations.length == 1
-            puts "You have a plate at: #{locations}."
+            puts "You have a plate at: #{locations.to_s}."
         else puts "You have plates at: #{locations.join(", ")}."
         end
     end
-    puts "\n"
     puts "Hunger: #{$user.hunger}"
     puts "Tryptophan: #{$user.tryptophan}"
+    puts "\n"
 end
 
