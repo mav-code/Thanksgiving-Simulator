@@ -1,8 +1,6 @@
 require_relative '../config/environment'
 require 'faker'
 
-
-system "clear"
-boot
+new_world
 intro
 thanksgiving_menu
