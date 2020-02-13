@@ -20,7 +20,7 @@ end
 
 def intro
     prompt = TTY::Prompt.new
-        puts "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
+        puts "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||".yellow
     sleep(1)
     puts "\n"
     puts "
@@ -29,16 +29,16 @@ def intro
    ██║     ███████║  ███████║  ██╔██╗ ██║  █████╔╝   ███████╗  ██║  ███╗  ██║  ██║   ██║  ██║  ██╔██╗ ██║  ██║  ███╗
    ██║     ██╔══██║  ██╔══██║  ██║╚██╗██║  ██╔═██╗   ╚════██║  ██║   ██║  ██║  ╚██╗ ██╔╝  ██║  ██║╚██╗██║  ██║   ██║
    ██║     ██║  ██║  ██║  ██║  ██║ ╚████║  ██║  ██╗  ███████║  ╚██████╔╝  ██║   ╚████╔╝   ██║  ██║ ╚████║  ╚██████╔╝
-   ╚═╝     ╚═╝  ╚═╝  ╚═╝  ╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝  ╚══════╝   ╚═════╝   ╚═╝    ╚═══╝    ╚═╝  ╚═╝  ╚═══╝   ╚═════╝"
+   ╚═╝     ╚═╝  ╚═╝  ╚═╝  ╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝  ╚══════╝   ╚═════╝   ╚═╝    ╚═══╝    ╚═╝  ╚═╝  ╚═══╝   ╚═════╝".red
     puts "\n"
     sleep(1)
     puts "
                                             ┌─┐┬┌┬┐┬ ┬┬  ┌─┐┌┬┐┌─┐┬─┐
                                             └─┐│││││ ││  ├─┤ │ │ │├┬┘
-                                            └─┘┴┴ ┴└─┘┴─┘┴ ┴ ┴ └─┘┴└─"
+                                            └─┘┴┴ ┴└─┘┴─┘┴ ┴ ┴ └─┘┴└─".red
     sleep(1)
     puts "\n"
-    puts "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
+    puts "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||".yellow
     sleep(1)
     puts "\n"
     puts "The year is 2020, the month November. Halloween is over. You promise yourself your costume will be better next year."
@@ -93,7 +93,7 @@ def call(tg)
     puts "You decide to call ahead and get the lay of the land."
     sleep(3)
     puts "\n"
-    puts "Your chosen point of contact is #{contact}, whom you know to be in attendance."
+    puts "Your chosen point of contact is #{contact.red}, whom you know to be in attendance."
     puts "\n"
     rand(1..6).times do 
         sleep(3)
@@ -117,7 +117,7 @@ def call(tg)
 end
 
 def attend(tg)
-    puts "You arrive at #{tg.location}. The hosts greet you and entreat you to dine."
+    puts "You arrive at #{tg.location.blue}. The hosts greet you and entreat you to dine."
     if tg.course == "Tofurky"
         sleep(0.5)
         puts "\n"
@@ -149,14 +149,14 @@ def tg_choice(tg)
             puts "You shovel matter into your body."
             sleep(0.5)
             puts "\n"
-            puts "Hunger -100"
+            puts "Hunger " + "-100".red
             $user.hunger -= 100
             if tg.course == "Turkey"
                 puts "The turkey chemical!"
-                puts "Tryptophan +1"
+                puts "Tryptophan " + "+1".red
                 $user.tryptophan += 1
             else
-                puts "Tryptophan +0"
+                puts "Tryptophan" + "+0".yellow
             end
             sleep(0.5)
             puts "\n"
