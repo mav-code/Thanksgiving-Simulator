@@ -16,7 +16,11 @@ def year_flavor
     elsif yearmod == 1
         puts "Last month the United States declared a war of liberation against #{Faker::Address.country}. Still, Turkey Day proceeds."
     elsif yearmod == 2
-        puts  "The world cup in Qatar has just started. Everyone knows that the stadiums were built with mass slave labor, and on top of the graves of slave laborers. It doesn't affect coverage."
+        if $year == 2022
+            puts  "The world cup in Qatar has just started. Everyone knows that the stadiums were built with mass slave labor, and on top of the graves of slave laborers. It doesn't affect coverage."
+        else
+            puts "The world cup in #{Faker::Address.country} has just started."
+        end
         puts "\n"
         sleep (1)
         puts "Today we have a match between #{Faker::Address.country} and #{Faker::Address.country} and one between #{Faker::Address.country} and #{Faker::Address.country}."
@@ -252,11 +256,17 @@ def eat(tg)
         sleep(7)
         system "clear"
         sleep(2)
+        vishnu
         intro
     end
     sleep(0.5)
     puts "\n"
     tg_choice(tg)
+end
+
+def vishnu
+    $user.hunger = 100
+    $user.tryptophan = 0
 end
 
 def political_argument(tg)
