@@ -1,6 +1,11 @@
+def setclock
+    $year = 2019
+end
+
 def new_world
     shiva
     brahma
+    intro
 end
 
 def shiva
@@ -39,7 +44,6 @@ def brahma
         end
     }
     $user = Person.create(name: "Yourself, remember?", hunger: "100", tryptophan: "0", politics: nil)
-    $year = 2019
 end
 
 $bar = "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
@@ -256,17 +260,11 @@ def eat(tg)
         sleep(7)
         system "clear"
         sleep(2)
-        vishnu
-        intro
+        new_world
     end
     sleep(0.5)
     puts "\n"
     tg_choice(tg)
-end
-
-def vishnu
-    $user.hunger = 100
-    $user.tryptophan = 0
 end
 
 def political_argument(tg)
