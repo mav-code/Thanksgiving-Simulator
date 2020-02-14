@@ -1,14 +1,6 @@
 require_relative '../config/environment'
 require 'faker'
 
-# jemy = Person.create(name: 'Jemy', hunger: 8, tryptophan: 10, politics: 'blue')
-Person.create(name: Faker::Name.name, hunger: 10, tryptophan: 10, politics: "Red")
-Person.create(name: Faker::Name.name, hunger: 10, tryptophan: 10, politics: "Blue")
-Person.create(name: Faker::Name.name, hunger: 10, tryptophan: 10, politics: "Blue")
-Person.create(name: Faker::Name.name, hunger: 10, tryptophan: 10, politics: "Red")
-Person.create(name: Faker::Name.name, hunger: 10, tryptophan: 10, politics: "Red")
-Person.create(name: Faker::Name.name, hunger: 10, tryptophan: 10, politics: "Blue")
-
 Thanksgiving.create!(course: "Turkey", strife: 0, location: "Daryl's Place")
 Thanksgiving.create!(course: "Tofurky", strife: 0, location: "Ken's Place")
 Thanksgiving.create!(course: "Turkey", strife: 0, location: "Mom's Place")
@@ -29,4 +21,4 @@ Thanksgiving.create!(course: "Turkey", strife: 0, location: "Friendsgiving, but 
 Thanksgiving.create!(course: "Turkey", strife: 0, location: "Aunt's Place")
 Thanksgiving.create!(course: "Turkey", strife: 0, location: "Friendsgiving")
 
-# Thanksgiving.create!(course: "Turkey", strife: 0, location: "Stay Home")
+# Thanksgiving.create!(course: "Ramen", strife: 0, location: "Stay Home")

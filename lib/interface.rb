@@ -21,28 +21,67 @@ def brahma
     $user = Person.create(name: "Yourself, remember?", hunger: "100", tryptophan: "0", politics: nil)
 end
 
-def intro
-    prompt = TTY::Prompt.new
-        puts "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||".yellow
-    sleep(1)
-    puts "\n"
-    puts "
+$bar = "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
+$tglogo = "
 ████████╗  ██╗  ██╗   █████╗   ███╗   ██╗  ██╗  ██╗  ███████╗   ██████╗   ██╗  ██╗   ██╗  ██╗  ███╗   ██╗   ██████╗
 ╚══██╔══╝  ██║  ██║  ██╔══██╗  ████╗  ██║  ██║ ██╔╝  ██╔════╝  ██╔════╝   ██║  ██║   ██║  ██║  ████╗  ██║  ██╔════╝
    ██║     ███████║  ███████║  ██╔██╗ ██║  █████╔╝   ███████╗  ██║  ███╗  ██║  ██║   ██║  ██║  ██╔██╗ ██║  ██║  ███╗
    ██║     ██╔══██║  ██╔══██║  ██║╚██╗██║  ██╔═██╗   ╚════██║  ██║   ██║  ██║  ╚██╗ ██╔╝  ██║  ██║╚██╗██║  ██║   ██║
    ██║     ██║  ██║  ██║  ██║  ██║ ╚████║  ██║  ██╗  ███████║  ╚██████╔╝  ██║   ╚████╔╝   ██║  ██║ ╚████║  ╚██████╔╝
-   ╚═╝     ╚═╝  ╚═╝  ╚═╝  ╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝  ╚══════╝   ╚═════╝   ╚═╝    ╚═══╝    ╚═╝  ╚═╝  ╚═══╝   ╚═════╝".red
+   ╚═╝     ╚═╝  ╚═╝  ╚═╝  ╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝  ╚══════╝   ╚═════╝   ╚═╝    ╚═══╝    ╚═╝  ╚═╝  ╚═══╝   ╚═════╝"
+
+$simlogo = "
+                                                ┌─┐┬┌┬┐┬ ┬┬  ┌─┐┌┬┐┌─┐┬─┐
+                                                └─┐│││││ ││  ├─┤ │ │ │├┬┘
+                                                └─┘┴┴ ┴└─┘┴─┘┴ ┴ ┴ └─┘┴└─"
+
+def fulllogo1
+    puts $bar.yellow
     puts "\n"
-    sleep(0.5)
-    puts "
-                                            ┌─┐┬┌┬┐┬ ┬┬  ┌─┐┌┬┐┌─┐┬─┐
-                                            └─┐│││││ ││  ├─┤ │ │ │├┬┘
-                                            └─┘┴┴ ┴└─┘┴─┘┴ ┴ ┴ └─┘┴└─".red
+    puts $tglogo.red
+    puts "\n"
+    puts $simlogo.red
+    puts "\n"
+    puts $bar.yellow
+end
+
+def fulllogo2
+    puts $bar.red
+    puts "\n"
+    puts $tglogo.yellow
+    puts "\n"
+    puts $simlogo.yellow
+    puts "\n"
+    puts $bar.red
+end
+
+def logoflicker
+    3.times do
+    system "clear"
+    fulllogo2
+    sleep(1)
+    system "clear"
+    fulllogo1
+    sleep(1)
+    end
+end
+
+
+def intro
+    prompt = TTY::Prompt.new
+    puts $bar.yellow
     sleep(1)
     puts "\n"
-    puts "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||".yellow
+    puts $tglogo.red
+    puts "\n"
     sleep(1)
+    puts $simlogo.red
+    sleep(1)
+    puts "\n"
+    puts $bar.yellow
+    sleep(1)
+    logoflicker
+    sleep(2)
     puts "\n"
     puts "The year is 2020, the month November. Halloween is over. You promise yourself your costume will be better next year."
     puts "\n"
@@ -215,4 +254,3 @@ def clear_and_display
     puts "Tryptophan: #{$user.tryptophan}"
     puts "\n"
 end
-
