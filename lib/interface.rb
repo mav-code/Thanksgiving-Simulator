@@ -9,6 +9,22 @@ def shiva
     Person.destroy_all
 end
 
+def year_flavor
+    yearmod = $year % 4
+    if yearmod == 0
+        puts "The election was three weeks ago. It was devastating."
+    elsif yearmod == 1
+        puts "Last month the United States declared a war of liberation against #{Faker::Address.country}. Still, Turkey Day proceeds."
+    elsif yearmod == 2
+        puts  "The world cup in Qatar has just started. Everyone knows that the stadiums were built with mass slave labor, and on top of the graves of slave laborers. It doesn't affect coverage."
+        puts "\n"
+        sleep (1)
+        puts "Today we have a match between #{Faker::Address.country} and #{Faker::Address.country} and one between #{Faker::Address.country} and #{Faker::Address.country}."
+    elsif yearmod == 3
+        puts "Reality is fraying."
+    end
+end
+
 def brahma
     $todays_tgs = Thanksgiving.all.sample(5)
     50.times do Person.create(name: Faker::Name.unique.name, hunger: "100", tryptophan: "0", politics: nil) 
@@ -19,6 +35,7 @@ def brahma
         end
     }
     $user = Person.create(name: "Yourself, remember?", hunger: "100", tryptophan: "0", politics: nil)
+    $year = 2019
 end
 
 $bar = "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
@@ -31,9 +48,9 @@ $tglogo = "
    ╚═╝     ╚═╝  ╚═╝  ╚═╝  ╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝  ╚══════╝   ╚═════╝   ╚═╝    ╚═══╝    ╚═╝  ╚═╝  ╚═══╝   ╚═════╝"
 
 $simlogo = "
-                                                ┌─┐┬┌┬┐┬ ┬┬  ┌─┐┌┬┐┌─┐┬─┐
-                                                └─┐│││││ ││  ├─┤ │ │ │├┬┘
-                                                └─┘┴┴ ┴└─┘┴─┘┴ ┴ ┴ └─┘┴└─"
+                                              ┌─┐┬┌┬┐┬ ┬┬  ┌─┐┌┬┐┌─┐┬─┐
+                                              └─┐│││││ ││  ├─┤ │ │ │├┬┘
+                                              └─┘┴┴ ┴└─┘┴─┘┴ ┴ ┴ └─┘┴└─"
 
 def fulllogo1
     puts $bar.yellow
@@ -57,18 +74,19 @@ end
 
 def logoflicker
     3.times do
-    system "clear"
-    fulllogo2
-    sleep(1)
-    system "clear"
-    fulllogo1
-    sleep(1)
+        system "clear"
+        fulllogo2
+        sleep(1)
+        system "clear"
+        fulllogo1
+        sleep(1)
     end
 end
 
 
 def intro
     prompt = TTY::Prompt.new
+    $year += 1
     puts $bar.yellow
     sleep(1)
     puts "\n"
@@ -83,11 +101,10 @@ def intro
     logoflicker
     sleep(2)
     puts "\n"
-    puts "The year is 2020, the month November. Halloween is over. You promise yourself your costume will be better next year."
+    puts "The year is #{$year}, the month November. Halloween is over. You promise yourself your costume will be better next year."
     puts "\n"
     sleep(3)
-    puts "The election was three weeks ago. It was devastating."
-    puts "\n"
+    puts year_flavor
     sleep(3)
     puts "It is time once again for the American harvest/genocide festival."
     puts "\n"
@@ -105,6 +122,7 @@ def intro
     puts "This year's a big one; you're expected at five seperate Thanksgivings. It's a real ordeal, but you suppose you should be thankful."
     sleep (1)
     puts "\n"
+    thanksgiving_menu
 end
 
 def thanksgiving_menu
@@ -194,27 +212,51 @@ def tg_choice(tg)
         if plate_choice == "Get into a political argument"
             political_argument(tg)
         elsif plate_choice == "Stuff your face"
-            sleep(0.5)
-            puts "You shovel matter into your body."
-            sleep(0.5)
-            puts "\n"
-            puts "Hunger " + "-100".red
-            $user.hunger -= 100
-            if tg.course == "Turkey"
-                puts "Tryptophan " + "+1".red
-                puts "The turkey chemical!"
-                $user.tryptophan += 1
-            else
-                puts "Tryptophan" + "+0".yellow
-            end
-            sleep(0.5)
-            puts "\n"
-            tg_choice(tg)
+            eat(tg)
         else
             clear_and_display
             thanksgiving_menu
         end
 
+end
+
+def eat(tg)
+    sleep(0.5)
+    puts "You shovel matter into your body."
+    sleep(0.5)
+    puts "\n"
+    puts "Hunger " + "-100".green
+    $user.hunger -= 100
+    puts "Hunger: #{$user.hunger}"
+    if tg.course == "Turkey"
+        puts "Tryptophan " + "+1".green
+        puts "The turkey chemical!"
+        $user.tryptophan += 1
+    else
+        puts "Tryptophan" + "+0".yellow
+    end
+    puts "Tryptophan: #{$user.tryptophan}"
+    sleep(0.5)
+    puts "\n"
+    if $user.tryptophan == 1
+        puts "Mmm. Birdmeat."
+    elsif $user.tryptophan == 2
+        puts "Unf. Gettin sleepy"
+    elsif $user.tryptophan == 3
+        puts "Moving is getting to be a real struggle."
+    elsif $user.tryptophan == 4
+        puts "Mmf... one more... bite... eyes... closing..."
+        sleep(1)
+        puts "\n"
+        puts "Your fork and your head hit the table together. Fade to black."
+        sleep(7)
+        system "clear"
+        sleep(2)
+        intro
+    end
+    sleep(0.5)
+    puts "\n"
+    tg_choice(tg)
 end
 
 def political_argument(tg)
